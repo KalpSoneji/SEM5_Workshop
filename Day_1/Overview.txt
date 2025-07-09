@@ -1,0 +1,38 @@
+Day 1 Project Overview: Smart Energy Consumption Tracker
+
+The Day 1 project is an interactive "Smart Energy Consumption Tracker" web application built using Streamlit, Pandas, and Plotly. 
+The primary goal of this application is to help users monitor, analyze, and optimize their daily and weekly household energy consumption,
+with a focus on user-friendliness and actionable insights.
+
+Key Components:
+- Streamlit provides the user interface, allowing users to input their house type (Apartment, Villa, Row House, etc.), 
+number of rooms (BHK), and configure appliance ratings and usage patterns.
+- Users can choose between two tracking modes: "Daily Average" (simple daily hours for each appliance) or 
+"Weekly Pattern" (customize usage for each day of the week).
+- The app calculates total energy consumption for appliances like Air Conditioners, Fans, Lights, 
+and Washing Machines, based on user inputs and room counts.
+- Instant feedback is provided with metrics for total energy used (in kWh), 
+cost estimates (using a default rate of ₹6 per kWh), and appliance-wise breakdowns.
+- Advanced features include:
+    - Visualization through dynamic charts (pie, bar, and weekly stacked bar charts) for better understanding of consumption patterns.
+    - Data tables displaying daily and weekly summaries, as well as consumption history.
+    - Insights and recommendations to optimize usage (e.g., consolidating washing machine usage, reducing high AC hours, 
+      and comparing weekend vs. weekday patterns).
+    - An "Efficiency Score" system that gives feedback on energy habits and suggests improvements.
+    - The ability to save daily consumption records and review historical trends.
+    - Energy-saving tips and personalized recommendations.
+
+Technical Details:
+- The main code is in `Day_1/Energy_Consumption_Calculator.py`.
+- Required libraries are specified in `requirements.txt`:
+    streamlit>=1.30.0
+    pandas>=2.0.0
+    plotly>=5.20.0
+
+Purpose and Learning Outcome:
+This project demonstrates hands-on skills in building a full-stack data-driven dashboard, with real-world applications 
+in sustainability and home automation. Users not only learn Python and data visualization, but also gain practical 
+understanding of monitoring and optimizing household energy use.
+
+By tracking, visualizing, and reflecting on their energy habits, users can 
+contribute to both personal cost savings and a greener future.
