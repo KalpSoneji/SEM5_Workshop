@@ -1,17 +1,20 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-# import matplotlib.pyplot as plt
-# import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_squared_error, r2_score, classification_report, accuracy_score, confusion_matrix
 import plotly.express as px
-# import plotly.graph_objects as go
-# from plotly.subplots import make_subplots
 import warnings
 warnings.filterwarnings('ignore')
+
+# Check if statsmodels is available for trendline
+try:
+    import statsmodels.api as sm
+    STATSMODELS_AVAILABLE = True
+except ImportError:
+    STATSMODELS_AVAILABLE = False
 
 # Set page config
 st.set_page_config(
@@ -105,6 +108,7 @@ def generate_solar_data():
     
     # Generate data
     all_data = []
+    np.random.seed(42)  # For reproducible results
     
     for season in ['summer', 'winter', 'monsoon']:
         for month, days in seasons_months[season].items():
@@ -115,6 +119,10 @@ def generate_solar_data():
                 temp = np.random.uniform(*feature_ranges[season]['ambient_temperature'])
                 tilt = np.random.uniform(*feature_ranges[season]['tilt_angle'])
                 kwh = calc_functions[season](irr, hum, wind, temp, tilt)
+                
+                # Add some noise to make it more realistic
+                kwh += np.random.normal(0, 0.5)
+                kwh = max(0, kwh)  # Ensure non-negative values
                 
                 all_data.append({
                     'irradiance': round(irr, 2),
@@ -402,10 +410,28 @@ elif page == "📈 Analytics":
     # Correlation with energy output
     st.subheader("🔗 Feature vs Energy Output Correlation")
     
-    fig_corr = px.scatter(df, x=feature_to_analyze, y='kwh', color='season',
-                         title=f"{feature_to_analyze.replace('_', ' ').title()} vs Energy Output",
-                         trendline="ols")
+    # Create scatter plot with conditional trendline
+    if STATSMODELS_AVAILABLE:
+        fig_corr = px.scatter(df, x=feature_to_analyze, y='kwh', color='season',
+                             title=f"{feature_to_analyze.replace('_', ' ').title()} vs Energy Output",
+                             trendline="ols")
+    else:
+        fig_corr = px.scatter(df, x=feature_to_analyze, y='kwh', color='season',
+                             title=f"{feature_to_analyze.replace('_', ' ').title()} vs Energy Output")
+        st.info("💡 Install statsmodels for trendline analysis: pip install statsmodels")
+    
     st.plotly_chart(fig_corr, use_container_width=True)
+    
+    # Additional correlation analysis
+    st.subheader("📊 Correlation Analysis")
+    correlation = df[feature_to_analyze].corr(df['kwh'])
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Correlation with Energy Output", f"{correlation:.4f}")
+    with col2:
+        correlation_strength = "Strong" if abs(correlation) > 0.7 else "Moderate" if abs(correlation) > 0.3 else "Weak"
+        st.metric("Correlation Strength", correlation_strength)
 
 # Footer
 st.markdown("---")
@@ -420,6 +446,10 @@ The app includes:
 
 Built with Streamlit, scikit-learn, and Plotly for an interactive experience.
 """)
+
+# Display dependency status
+if not STATSMODELS_AVAILABLE:
+    st.warning("⚠️ Note: Some advanced features require statsmodels. Install it with: pip install statsmodels")
 
 st.markdown("---")
 st.markdown("Made with ❤️ using Streamlit | Solar Energy Analytics")
