@@ -7,15 +7,11 @@ import itertools
 import tempfile
 from PIL import Image
 import zipfile
-import io
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
-import plotly.graph_objects as go
-import plotly.express as px
 
 # Set page configuration
 st.set_page_config(
