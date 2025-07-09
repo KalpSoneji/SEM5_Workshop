@@ -1,0 +1,45 @@
+Day_2 Project Overview – Solar Panel Performance Forecasting
+
+The Day_2 project of the SEM5_Workshop is a comprehensive machine learning and data analytics mini-project 
+focused on solar panel performance forecasting. The project is designed to teach students about end-to-end 
+data generation, analysis, model building, and interactive visualization using Python and Streamlit.
+
+Key Components:
+
+1. Data Generation & Preparation:
+- Synthetic datasets are generated to simulate solar panel performance for three Indian seasons: Summer, Winter, and Monsoon.
+- For each season, environmental variables such as irradiance, humidity, wind speed, ambient temperature, and panel 
+  tilt angle are randomly generated for every day of relevant months, with formulas to compute the solar energy output (kWh).
+- The combined dataset includes all seasons, annotated by month and season, and is saved as a CSV file for further analysis.
+
+2. Exploratory Data Analysis (EDA) & Visualization:
+- The data is explored through various visualizations: violin plots for energy output by season, monthly
+  averages with error bars, correlation heatmaps, scatter plots, and trend analyses.
+- Advanced plots reveal insights into which features most impact solar energy 
+  production and how performance varies across months and seasons.
+
+3. Machine Learning Models:
+- Linear Regression is used to predict energy output (kWh) based on environmental features. 
+  Model performance is evaluated using R² and RMSE, with feature importance visualized.
+- Logistic Regression is applied to classify the season (summer, winter, monsoon) based on 
+  the given conditions and energy output, with evaluation via accuracy and confusion matrix.
+
+4. Interactive Web Application (Streamlit):
+- A Streamlit app provides an interactive dashboard where users can:
+  • View key metrics and visualizations.
+  • Input environmental parameters to get real-time energy output predictions.
+  • Train and evaluate ML models on the fly.
+  • Analyze advanced statistics and feature correlations.
+- The app is styled for clarity and ease of use, integrating Plotly for dynamic plots.
+
+5. Requirements:
+- The project uses popular Python libraries including streamlit, pandas, numpy, scikit-learn, matplotlib, plotly, and statsmodels.
+
+Learning Outcomes:
+- Understand data simulation and realistic dataset creation.
+- Gain hands-on experience in EDA, visualization, and feature correlation.
+- Implement and interpret machine learning regression and classification models.
+- Build and deploy an interactive analytics app for real-world use cases.
+
+This project is a standalone, end-to-end example of how data science and 
+machine learning can provide actionable insights in renewable energy domains.
